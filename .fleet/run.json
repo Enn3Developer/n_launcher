@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "type": "cargo",
+            "name": "Run",
+            "cargoArgs": ["run"],
+        },
+        {
+            "type": "cargo",
+            "name": "Clippy",
+            "cargoArgs": ["clippy"],
+            "executableArgs": ["-D clippy::correctness", "-D clippy::complexity", "-D clippy::perf"],
+        },
+        
+    ]
+}
