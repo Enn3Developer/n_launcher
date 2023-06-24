@@ -1,6 +1,6 @@
 use std::{
     env,
-    io::{self, stdin},
+    io::{self, stdin, Write},
     process::Command,
 };
 
@@ -38,6 +38,7 @@ fn main() {
     let root = home.join(".technic/modpacks/rgbcraft-server-modpack");
     let mut name = String::new();
     print!("Write your username: ");
+    io::stdout().flush().unwrap();
     io::stdin().read_line(&mut name).unwrap();
     let name = name.trim();
     if let Err(e) = env::set_current_dir(&root) {
