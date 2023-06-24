@@ -10,7 +10,7 @@ jobs:
       matrix:
         target: [x86_64-pc-windows-msvc, aarch64-pc-windows-msvc]
     env:
-      CRATE_NAME: "NLauncher"
+      CRATE_NAME: "n_launcher"
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -45,7 +45,7 @@ jobs:
       matrix:
         target: [x86_64-apple-darwin, aarch64-apple-darwin]
     env:
-      CRATE_NAME: "NLauncher"
+      CRATE_NAME: "n_launcher"
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -87,7 +87,7 @@ jobs:
             host_cc: ""
             target_cc: aarch64-linux-gnu
     env:
-      CRATE_NAME: "NLauncher"
+      CRATE_NAME: "n_launcher"
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
