@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 dirs = "5.0.1"
+n_launcher_proc = { path = "n_launcher_proc" }
 
 [profile.release]
 strip = true
