@@ -8,10 +8,7 @@ use n_launcher_proc::cross_path;
 
 fn main() {
     let home = dirs::home_dir().expect("can't find home dir");
-    #[cfg(not(target_os = "windows"))]
-    let root = home.join(".technic/modpacks/rgbcraft-server-modpack");
-    #[cfg(target_os = "windows")]
-    let root = home.join(".technic\\modpacks\\rgbcraft-server-modpack");
+    let root = home.join(cross_path!(".technic/modpacks/rgbcraft-server-modpack"));
     let mut name = String::new();
     print!("Write your username: ");
     io::stdout().flush().unwrap();
