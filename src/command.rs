@@ -79,12 +79,17 @@ impl NCommand {
             .args(FINAL)
             .arg(&self.title)
             .spawn()
-            .expect(&format!("can't execute {}", self.java))
+            .unwrap_or_else(|_| panic!("can't execute {}", self.java))
     }
 }
 
 impl Default for NCommand {
     fn default() -> Self {
-        Self::new(String::new(), 0, String::new(), String::from("java"))
+        Self::new(
+            String::new(),
+            0,
+            String::from("Project FPS"),
+            String::from("java"),
+        )
     }
 }
