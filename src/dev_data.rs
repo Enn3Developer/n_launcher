@@ -23,7 +23,23 @@ pub struct DownloadClient {
 
 #[derive(Debug, Default, Serialize, Deserialize)]
 pub struct DownloadArtifact {
-    artifact: Artifact,
+    artifact: Option<Artifact>,
+    classifiers: Option<Classifiers>,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+pub struct Natives {
+    path: String,
+    sha1: String,
+    size: usize,
+    url: String,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+pub struct Classifiers {
+    natives_linux: Natives,
+    natives_osx: Natives,
+    natives_windows: Natives,
 }
 
 #[derive(Debug, Default, Serialize, Deserialize)]
@@ -33,9 +49,36 @@ pub struct JavaVersion {
 }
 
 #[derive(Debug, Default, Serialize, Deserialize)]
+pub struct OS {
+    name: String,
+    version: String,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+pub struct Action {
+    action: String,
+    os: Option<OS>,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+pub struct Extract {
+    exclude: Vec<String>,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+pub struct NativesData {
+    linux: String,
+    osx: String,
+    windows: String,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
 pub struct Library {
     downloads: DownloadArtifact,
     name: String,
+    rules: Option<Vec<Action>>,
+    extract: Option<Extract>,
+    natives: Option<NativesData>,
 }
 
 #[derive(Debug, Default, Serialize, Deserialize)]
