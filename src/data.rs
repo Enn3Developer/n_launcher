@@ -35,4 +35,20 @@ impl Data {
     pub fn java(&self) -> String {
         self.java.clone()
     }
+
+    pub fn set_name(&mut self, name: String) {
+        self.name = name;
+    }
+
+    pub fn set_technic_data(&mut self, technic_data: TechnicData) {
+        self.technic_data = technic_data;
+    }
+
+    pub fn set_ram(&mut self, ram: u32) {
+        self.ram = ram;
+    }
+
+    pub fn set_java(&mut self, java: String) {
+        self.java = java;
+    }
 }
