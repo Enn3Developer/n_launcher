@@ -87,7 +87,7 @@ impl Technic {
             "https://api.technicpack.net/modpack/{}?build=69420",
             self.pack
         );
-        let resp = if let Ok(resp) = reqwest::blocking::get(&url) {
+        let resp = if let Ok(resp) = reqwest::blocking::get(url) {
             resp
         } else {
             println!("pack {} errored; trying default pack", self.pack);
@@ -106,24 +106,19 @@ impl Technic {
             panic!("error message: {error}")
         }
 
-        let version = resp.version.expect(&format!(
-            "can't get version from technic data, pack {}",
-            self.pack
-        ));
+        let version = resp
+            .version
+            .unwrap_or_else(|| panic!("can't get version from technic data, pack {}", self.pack));
 
-        let download_url = resp.url.expect(&format!(
-            "can't get url from technic data, pack {}",
-            self.pack
-        ));
+        let download_url = resp
+            .url
+            .unwrap_or_else(|| panic!("can't get url from technic data, pack {}", self.pack));
 
         let icon_url = resp
             .icon
-            .expect(&format!(
-                "can't get icon url from technic data, pack {}",
-                self.pack
-            ))
+            .unwrap_or_else(|| panic!("can't get icon url from technic data, pack {}", self.pack))
             .url;
 
-        TechnicData::new(version.to_string(), download_url.to_string(), icon_url)
+        TechnicData::new(version, download_url, icon_url)
     }
 }

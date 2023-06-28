@@ -1,4 +1,3 @@
-use crate::dev_data::DevData;
 use crate::technic::TechnicData;
 use std::io::Cursor;
 use std::path::PathBuf;
@@ -15,10 +14,8 @@ pub fn download(root: &PathBuf, technic_data: &TechnicData) {
         .bytes()
         .expect("can't load pack zip as bytes")
         .into_iter()
-        .map(|byte| byte)
         .collect::<Vec<u8>>();
     let reader = Cursor::new(resp);
     let mut zip = ZipArchive::new(reader).expect("can't read zip file");
-    zip.extract(&root)
-        .expect("can't extract all files from zip");
+    zip.extract(root).expect("can't extract all files from zip");
 }

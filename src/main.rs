@@ -11,7 +11,7 @@ fn main() {
     let saved_data_path = root.join("n_launcher.json");
 
     if !root.exists() {
-        fs::create_dir(&root).expect(&format!("can't create .rgbcraft dir: {:?}", &root));
+        fs::create_dir(&root).unwrap_or_else(|_| panic!("can't create .rgbcraft dir: {:?}", &root));
     }
 
     let mut data = if saved_data_path.exists() {
