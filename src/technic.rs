@@ -44,6 +44,7 @@ struct Response {
     server_pack_url: Option<String>,
 }
 
+#[derive(Debug, Default, Serialize, Deserialize)]
 pub struct TechnicData {
     version: String,
     download_url: String,
