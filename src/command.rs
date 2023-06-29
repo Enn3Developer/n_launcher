@@ -24,7 +24,15 @@ const COMMON: &[&str] = &[
     "net.technicpack.legacywrapper.Launch",
 ];
 
-const FINAL: &[&str] = &["--assetsDir", "resources", "--icon", "icon.png", "--title"];
+const FINAL: &[&str] = &[
+    "--assetsDir",
+    "resources",
+    "--icon",
+    "icon.png",
+    "--gameDir",
+    ".",
+    "--title",
+];
 pub struct NCommand {
     user: String,
     ram: u32,
@@ -66,16 +74,17 @@ impl NCommand {
         let xms = format!("-Xms{}G", self.ram);
         let xmx = format!("-Xmx{}G", self.ram);
         let java = format!(
-            "{} {} {} {} {} --gameDir {} {} {}",
+            "{} {} {} {} {} - {} {}",
             self.java,
             xms,
             xmx,
             COMMON.join(" "),
             self.user,
-            dir.to_string_lossy(),
             FINAL.join(" "),
             self.title
         );
+
+        println!("{}", java.replace("/", "\\"));
 
         #[cfg(not(target_os = "windows"))]
         let c = "-c";
