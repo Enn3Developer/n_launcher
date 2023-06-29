@@ -81,7 +81,7 @@ impl NCommand {
         let c = "-c";
 
         #[cfg(target_os = "windows")]
-        let c = "";
+        let c = "/c";
 
         Command::new(COMMAND)
             .current_dir(&dir)
