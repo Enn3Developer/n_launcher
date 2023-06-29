@@ -5,11 +5,15 @@ use zip::ZipArchive;
 
 pub mod command;
 pub mod data;
-pub mod dev_data;
 pub mod technic;
 
 pub fn download(root: &PathBuf, technic_data: &TechnicData) {
-    let resp = reqwest::blocking::get(technic_data.download_url())
+    let resp = reqwest::blocking::Client::builder()
+        .timeout(None)
+        .build()
+        .expect("can't create client downloader")
+        .get(technic_data.download_url())
+        .send()
         .expect("can't download pack")
         .bytes()
         .expect("can't load pack zip as bytes")
