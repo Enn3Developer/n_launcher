@@ -24,7 +24,7 @@ jobs:
           rustup target add ${{ matrix.target }}
       - name: Build ${{ matrix.target }}
         run: |
-          cargo build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort  --target=${{ matrix.target }} --release
+          cargo build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --features "vendored" --target=${{ matrix.target }} --release
           cd target\${{ matrix.target }}\release && tar -cavf "$env:CRATE_NAME-${{ matrix.target }}.zip" "$env:CRATE_NAME.exe"  && cd ../../..
       - name: Upload NLauncher-${{ matrix.target }}
         uses: actions/upload-artifact@v3
@@ -62,7 +62,7 @@ jobs:
           TARGET_LDFLAGS: "--target=${{ matrix.target }}"
           TARGET_CFLAGS: "--target=${{ matrix.target }}"
         run: |
-          cargo build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --release --target=${{ matrix.target }}
+          cargo build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --features "vendored" --release --target=${{ matrix.target }}
           cd target/${{ matrix.target }}/release/ && tar -cvf "$CRATE_NAME-${{ matrix.target }}.tar.gz" "$CRATE_NAME" && cd ../../..
       - name: Upload NLauncher-${{ matrix.target }}.tar.gz
         uses: actions/upload-artifact@v3
