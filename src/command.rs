@@ -7,7 +7,7 @@ use n_launcher_proc::cross_path;
 const COMMAND: &str = "/bin/bash";
 
 #[cfg(target_os = "windows")]
-const COMMAND: &str = "cmd";
+const COMMAND: &str = "start";
 
 const COMMON: &[&str] = &[
     "-XX:+UnlockExperimentalVMOptions",
@@ -81,7 +81,7 @@ impl NCommand {
         let c = "-c";
 
         #[cfg(target_os = "windows")]
-        let c = "/c";
+        let c = "";
 
         Command::new(COMMAND)
             .current_dir(&dir)
