@@ -22,7 +22,7 @@ impl Parse for Args {
 pub fn cross_path(input: TokenStream) -> TokenStream {
     let Args { lit } = parse_macro_input!(input as Args);
     let value = if cfg!(target_os = "windows") {
-        lit.value().replace("/", "\\")
+        lit.value().replace("/", "\\").replace(":", ";")
     } else {
         lit.value()
     };
