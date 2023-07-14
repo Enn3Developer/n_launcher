@@ -31,13 +31,15 @@ fn main() {
     };
 
     let name = if data.is_none() {
-        let mut name = String::new();
-        print!("Write your username: ");
-        io::stdout().flush().unwrap();
-        io::stdin().read_line(&mut name).unwrap();
-        let name = name.trim();
+        let mut name = String::from("");
+        while &name == "" {
+            print!("Write your username: ");
+            io::stdout().flush().unwrap();
+            io::stdin().read_line(&mut name).unwrap();
+            name = name.trim().to_string();
+        }
         env::set_current_dir(&root).expect("can't change dir");
-        name.to_string()
+        name
     } else {
         println!("got name from saved data");
         data.as_ref().unwrap().name()
