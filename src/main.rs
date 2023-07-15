@@ -1,4 +1,5 @@
 use reqwest::blocking::Client;
+use slint::{ModelRc, VecModel};
 use std::{
     env, fs,
     io::{self, Write},
@@ -6,7 +7,17 @@ use std::{
 
 use n_launcher::{command::NCommand, data::Data, download, technic::Technic};
 
+slint::include_modules!();
+
 fn main() {
+    let app = App::new().unwrap();
+    app.global::<AppData>()
+        .set_articles(ModelRc::new(VecModel::from(vec![Article {
+            title: "Titolo".into(),
+            date: "2023-07-15".into(),
+            content: "Lorem ipsum".into(),
+        }])));
+
     let home = dirs::home_dir().expect("can't find home dir");
     let root = home.join(".rgbcraft");
     let saved_data_path = root.join("n_launcher.json");
@@ -42,8 +53,12 @@ fn main() {
         name
     } else {
         println!("got name from saved data");
-        data.as_ref().unwrap().name()
+        let name = data.as_ref().unwrap().name();
+        app.global::<AppData>().set_username(name.clone().into());
+        name
     };
+
+    app.run().unwrap();
 
     println!("getting data from technic");
     let technic = Technic::new(String::from("rgbcraft-test"));
